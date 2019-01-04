@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1011498386422",
+    "firebase_url": "https://calendar-e7190.firebaseio.com",
+    "project_id": "calendar-e7190",
+    "storage_bucket": "calendar-e7190.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011498386422:android:c9b12626afaf4094",
+        "android_client_info": {
+          "package_name": "com.example.master.mlife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011498386422-btm6k20mcq7g1tm7khg3kn66cli2ngao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.master.mlife",
+            "certificate_hash": "c7edfaedde3d61cd72a944fa6742491568d29ea6"
+          }
+        },
+        {
+          "client_id": "1011498386422-doc9pqmjdpdtkhc1mke6k713mc92830p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpx5xl7_lPQlPcR3vFxuQXCTdWuPbOxfw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011498386422-doc9pqmjdpdtkhc1mke6k713mc92830p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
