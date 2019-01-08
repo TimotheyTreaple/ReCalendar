@@ -1,35 +1,43 @@
 {
   "project_info": {
-    "project_number": "1011498386422",
-    "firebase_url": "https://calendar-e7190.firebaseio.com",
-    "project_id": "calendar-e7190",
-    "storage_bucket": "calendar-e7190.appspot.com"
+    "project_number": "869956098413",
+    "firebase_url": "https://calendar-4bf51f82308d78938ef1e.firebaseio.com",
+    "project_id": "calendar-4bf51f82308d78938ef1e",
+    "storage_bucket": "calendar-4bf51f82308d78938ef1e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1011498386422:android:c9b12626afaf4094",
+        "mobilesdk_app_id": "1:869956098413:android:c9b12626afaf4094",
         "android_client_info": {
           "package_name": "com.example.master.mlife"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1011498386422-btm6k20mcq7g1tm7khg3kn66cli2ngao.apps.googleusercontent.com",
+          "client_id": "869956098413-4ggd8cu4e05vb74f1ro4f59hd3c36t9u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.master.mlife",
-            "certificate_hash": "c7edfaedde3d61cd72a944fa6742491568d29ea6"
+            "certificate_hash": "b7a0d97b2605dc2d98ccf3f9f1cd98017dd80a60"
           }
         },
         {
-          "client_id": "1011498386422-doc9pqmjdpdtkhc1mke6k713mc92830p.apps.googleusercontent.com",
+          "client_id": "869956098413-17ia0noh1tttfogkcungk2k0o5jbfus1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.master.mlife",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "869956098413-4aksm7nr8753no10ouojsdnve9njgc85.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCpx5xl7_lPQlPcR3vFxuQXCTdWuPbOxfw"
+          "current_key": "AIzaSyDL_-mIYAcMhgX_of8A1HUzQ8sJFnobMMA"
         }
       ],
       "services": {
@@ -40,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1011498386422-doc9pqmjdpdtkhc1mke6k713mc92830p.apps.googleusercontent.com",
+              "client_id": "869956098413-4aksm7nr8753no10ouojsdnve9njgc85.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -5,9 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.master.mlife.R;
@@ -19,66 +21,64 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegistrationMain extends AppCompatActivity implements View.OnClickListener  {
 
-    private static final String TAG = "111";
+    private static final String TAG = "EmailPassword";
+
+    private TextView mStatusTextView;
+    private TextView mDetailTextView;
+    private EditText mEmailField;
+    private EditText mPasswordField;
+
     private FirebaseAuth mAuth;
-    private EditText mETEmail;
-    private EditText mETPassword;
-
-
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_layout);
-
+        findViewById(R.id.bt_sign_in).setOnClickListener(this);
+        findViewById(R.id.bt_registration).setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
-
-
     }
+
+    @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+        updateUI(currentUser);
     }
 
-    public void createAccount(String email, String password){
+    private void createAccount(String email, String password) {
+        Log.d(TAG, "createAccount:" + email);
+        if (!validateForm()) {
+            return;
+        }
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegistrationMain.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
 
-                        // ...
+
                     }
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        if(view.getId()==R.id.bt_sign_in){
-            signin(mETEmail.getText().toString(),mETPassword.getText().toString());
-        }else if(view.getId()==R.id.bt_registration){
-            regestration(mETEmail.getText().toString(),mETPassword.getText().toString());
+    private void signIn(String email, String password) {
+        Log.d(TAG, "signIn:" + email);
+        if (!validateForm()) {
+            return;
         }
-    }
 
-    public void signin(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -86,39 +86,89 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                            updateUI(user);
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(RegistrationMain.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            updateUI(null);
                         }
+
 
                     }
                 });
-
     }
-    public void getCurrentUser(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    private void signOut() {
+        mAuth.signOut();
+        updateUI(null);
+    }
+
+    private void sendEmailVerification() {
+
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(RegistrationMain.this,
+                                    "Verification email sent to " + user.getEmail(),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            Toast.makeText(RegistrationMain.this,
+                                    "Failed to send verification email.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String email = mEmailField.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            mEmailField.setError("Required.");
+            valid = false;
+        } else {
+            mEmailField.setError(null);
+        }
+
+        String password = mPasswordField.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            mPasswordField.setError("Required.");
+            valid = false;
+        } else {
+            mPasswordField.setError(null);
+        }
+
+        return valid;
+    }
+
+    private void updateUI(FirebaseUser user) {
+
         if (user != null) {
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-            Uri photoUrl = user.getPhotoUrl();
-            boolean emailVerified = user.isEmailVerified();
-            String uid = user.getUid();
+            findViewById(R.id.bt_sign_in).setVisibility(View.VISIBLE);
+        } else {
+            mDetailTextView.setText(null);
+
+
+            findViewById(R.id.bt_sign_in).setVisibility(View.GONE);
         }
     }
 
-    public void regestration(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    Toast.makeText(RegistrationMain.this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(RegistrationMain.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.bt_registration) {
+            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+        } else if (i == R.id.bt_sign_in) {
+            signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
 
+        }
     }
 }
