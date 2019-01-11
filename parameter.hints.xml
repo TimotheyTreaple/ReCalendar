@@ -1,0 +1,13 @@
+<application>
+  <component name="ParameterNameHintsSettings">
+    <blacklists>
+      <blacklist language="Java">
+        <added pattern="android.widget.Toast.makeText(context,text,duration)" />
+        <added pattern="android.app.Notification.Notification(parcel)" />
+        <added pattern="android.app.PendingIntent.getActivity(context,requestCode,intent,flags)" />
+        <added pattern="android.content.Intent.Intent(packageContext,cls)" />
+        <added pattern="android.widget.Button.Button(context)" />
+      </blacklist>
+    </blacklists>
+  </component>
+</application>

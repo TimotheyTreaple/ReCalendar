@@ -1,0 +1,8 @@
+<application>
+  <component name="LanguageInjectionConfiguration">
+    <injection language="AndroidDataBinding" injector-id="xml">
+      <display-name>android.support.constraint.ConstraintLayout/@layout_behavior</display-name>
+      <place><![CDATA[xmlAttribute().withLocalName(string().equalTo("layout_behavior")).withNamespace(string().equalTo("http://schemas.android.com/apk/res-auto")).withParent(xmlTag().withLocalName(string().matches("android.support.constraint.ConstraintLayout")))]]></place>
+    </injection>
+  </component>
+</application>
