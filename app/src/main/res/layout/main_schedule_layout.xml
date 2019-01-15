@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="7">
+
+        <LinearLayout
+            android:id="@+id/monday_button_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDayLayoutClick"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/text_monday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="38"
+                android:gravity="left|center_vertical|center"
+                android:text="@string/monday"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_monday_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="72"
+                android:gravity="left|center_vertical|center"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tuesday_button_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDayLayoutClick"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/text_tuesday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="38"
+                android:gravity="left|center_horizontal|center"
+                android:text="@string/tuesday"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_tuesday_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="72"
+                android:gravity="left|center_horizontal|center"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wednesday_button_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDayLayoutClick"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/text_wednesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="38"
+                android:gravity="left|center_horizontal|center"
+                android:text="@string/wednesday"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_wednesday_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="72"
+                android:gravity="left|center_horizontal|center"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/thursday_button_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDayLayoutClick"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/text_thursday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="38"
+                android:gravity="left|center_horizontal|center"
+                android:text="@string/thursday"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_thursday_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="72"
+                android:gravity="left|center_horizontal|center"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/friday_button_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDayLayoutClick"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/text_friday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="38"
+                android:gravity="left|center_horizontal|center"
+                android:text="@string/friday"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_friday_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="72"
+                android:gravity="left|center_horizontal|center"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saturday_button_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDayLayoutClick"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/text_saturday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="38"
+                android:gravity="left|center_horizontal|center"
+                android:text="@string/saturday"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_saturday_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="72"
+                android:gravity="left|center_horizontal|center"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sunday_button_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDayLayoutClick"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/text_sunday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="38"
+                android:gravity="left|center_horizontal|center"
+                android:text="@string/sunday"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/text_sunday_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="72"
+                android:gravity="left|center_horizontal|center"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
