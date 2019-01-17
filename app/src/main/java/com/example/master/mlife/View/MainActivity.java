@@ -109,8 +109,7 @@ public class MainActivity extends AppCompatActivity
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(user==null){
-            Intent intent = new Intent(this, RegistrationMain.class);
-            startActivityForResult(intent, 1);
+
         }
 
         myRefrence.child(user.getUid()).addValueEventListener(new ValueEventListener() {
@@ -221,6 +220,10 @@ public class MainActivity extends AppCompatActivity
             fragmentClass=FriendsListFragment.class;
         } else if (id == R.id.nav_day_schedule){
             fragmentClass=DayScheduleFragment.class;
+        } else if(id == R.id.nav_registration){
+            Intent intent = new Intent(this, RegistrationMain.class);
+            startActivityForResult(intent, 1);
+            return true;
         }
         // Выделяем выбранный пункт меню в шторке
         item.setChecked(true);
