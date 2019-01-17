@@ -26,11 +26,15 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
     private EditText mETEmail;
     private EditText mETPassword;
     private static final String TAG = "EmailPassword";
+    FirebaseUser us1;
 
 
 
 
+    public RegistrationMain(FirebaseUser user){
+      user = us1;
 
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,8 +56,6 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
     }
 
     public void createAccount(String email, String password){
-
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -105,6 +107,7 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    us1=user;
                     updateUI(user);
                     Toast.makeText(RegistrationMain.this, "Авторизация успешна", Toast.LENGTH_SHORT).show();
                     stopedActivity();
@@ -141,6 +144,7 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
                 if (task.isSuccessful()) {
                     Log.d(TAG, "createUserWithEmail:success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    us1=user;
                     updateUI(user);
                     Toast.makeText(RegistrationMain.this, "Регистрация успешна", Toast.LENGTH_SHORT).show();
                     stopedActivity();

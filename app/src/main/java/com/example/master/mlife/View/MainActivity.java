@@ -18,7 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +31,25 @@ import com.example.master.mlife.Fragments.MainScheduleFragment;
 import com.example.master.mlife.Fragments.MyProfileFragment;
 import com.example.master.mlife.Fragments.NewCreateFragment;
 import com.example.master.mlife.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference myRefrence;
+    private List<String> mTasks;
+
+    ListView mListUserTasks;
 
     FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -46,7 +64,7 @@ public class MainActivity extends AppCompatActivity
     Fragment fragment = null;
     Class fragmentClass = null;
 
-    TextView mTVEmail=null;
+    String mEmail;
 
 
     @Override
@@ -84,8 +102,56 @@ public class MainActivity extends AppCompatActivity
         mSaturdayLayout= findViewById(R.id.saturday_button_go);
         mSundayLayout= findViewById(R.id.sunday_button_go);
 
+        mListUserTasks=(ListView)findViewById(R.id.discr_for_task);
+
+        myRefrence = FirebaseDatabase.getInstance().getReference();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user==null){
+            Intent intent = new Intent(this, RegistrationMain.class);
+            startActivityForResult(intent, 1);
+        }
+
+        myRefrence.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<List<String>> t = new GenericTypeIndicator <List <String>>() {
+
+
+                    @Override
+                    public int hashCode() {
+                        return super.hashCode();
+                    }
+                };
+
+                mTasks = dataSnapshot.child("Tasks").getValue(t);
+                updateUI();
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         fragmentClass = MainScheduleFragment.class;
         setFragment();
+
+        if(mEmail!= null){
+
+        }else{
+
+        }
+
+    }
+
+    private void updateUI() {
+        ArrayAdapter<String> adapter = new ArrayAdapter <String>(getBaseContext(),android.R.layout.simple_list_item_1,mTasks);
+
+        mListUserTasks.setAdapter(adapter);
+
     }
 
 
@@ -153,10 +219,8 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = MainScheduleFragment.class;
         } else if (id == R.id.nav_friends_list) {
             fragmentClass=FriendsListFragment.class;
-        }else if (id==R.id.nav_registration){
-            Intent intent = new Intent(this, RegistrationMain.class);
-            startActivityForResult(intent, 1);
-            return true;
+        } else if (id == R.id.nav_day_schedule){
+            fragmentClass=DayScheduleFragment.class;
         }
         // Выделяем выбранный пункт меню в шторке
         item.setChecked(true);
@@ -176,7 +240,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (data != null) {
-            String iEmail = data.getStringExtra("email");
+            mEmail = data.getStringExtra("email");
 
 
         }
