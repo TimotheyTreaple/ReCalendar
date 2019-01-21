@@ -23,63 +23,11 @@
           }
         },
         {
-          "client_id": "869956098413-17ia0noh1tttfogkcungk2k0o5jbfus1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.master.mlife",
-            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
-          }
-        },
-        {
           "client_id": "869956098413-hcho2fmnqitckurj55ujl8f0ttic3h37.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.master.mlife",
             "certificate_hash": "059d0db0cd7961074fff0d447cdb4580558809e7"
-          }
-        },
-        {
-          "client_id": "869956098413-4aksm7nr8753no10ouojsdnve9njgc85.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDL_-mIYAcMhgX_of8A1HUzQ8sJFnobMMA"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "869956098413-4aksm7nr8753no10ouojsdnve9njgc85.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:869956098413:android:87fcb66cc6ca320a",
-        "android_client_info": {
-          "package_name": "com.google.firebase.quickstart.auth"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "869956098413-hgtioqg0tdipbq3qm30hftfehce2clmo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.google.firebase.quickstart.auth",
-            "certificate_hash": "b7a0d97b2605dc2d98ccf3f9f1cd98017dd80a60"
           }
         },
         {

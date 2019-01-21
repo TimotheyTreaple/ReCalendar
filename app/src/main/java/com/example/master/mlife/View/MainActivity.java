@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -45,10 +46,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference myRefrence;
-    private List<String> mTasks;
-
     ListView mListUserTasks;
 
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -65,6 +62,15 @@ public class MainActivity extends AppCompatActivity
     Class fragmentClass = null;
 
     String mEmail;
+
+    FirebaseUser mUser;
+    String mUserUId;
+
+    // Write a message to the database
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("message");
+
+
 
 
     @Override
@@ -91,6 +97,11 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        myRef.setValue("Hello, World!");
+        // Read from the database
+        onDataRead();
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -104,55 +115,17 @@ public class MainActivity extends AppCompatActivity
 
         mListUserTasks=(ListView)findViewById(R.id.discr_for_task);
 
-        myRefrence = FirebaseDatabase.getInstance().getReference();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(user==null){
+/*
+        assert mUser==null;
+        Intent iIntent = new Intent(MainActivity.this, RegistrationMain.class);
+        startActivityForResult(iIntent, 1);
+*/
 
-        }
-
-        myRefrence.child(user.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<String>> t = new GenericTypeIndicator <List <String>>() {
-
-
-                    @Override
-                    public int hashCode() {
-                        return super.hashCode();
-                    }
-                };
-
-                mTasks = dataSnapshot.child("Tasks").getValue(t);
-                updateUI();
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        fragmentClass = MainScheduleFragment.class;
-        setFragment();
-
-        if(mEmail!= null){
-
-        }else{
-
-        }
 
     }
-
-    private void updateUI() {
-        ArrayAdapter<String> adapter = new ArrayAdapter <String>(getBaseContext(),android.R.layout.simple_list_item_1,mTasks);
-
-        mListUserTasks.setAdapter(adapter);
-
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -162,6 +135,27 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void onDataRead(){
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Toast.makeText(MainActivity.this, "Value is: " + value, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Failed to read value
+                 Toast.makeText(MainActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -244,6 +238,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (data != null) {
             mEmail = data.getStringExtra("email");
+            mUserUId =  data.getStringExtra("userUId");
 
 
         }

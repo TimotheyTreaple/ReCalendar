@@ -1,6 +1,8 @@
 package com.example.master.mlife.View;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,13 +30,14 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
     private static final String TAG = "EmailPassword";
     FirebaseUser us1;
 
+    public static final String APP_PREFERENCES = "myParameters";
+
+    public static final String APP_PREFERENCES_EMAIL = "Email";
+    public static final String APP_PREFERENCES_UID = "UID";
+
+    SharedPreferences mParams;
 
 
-
-    public RegistrationMain(FirebaseUser user){
-      user = us1;
-
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,13 +49,19 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.bt_registration).setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
 
+        mParams = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if(mParams.contains(APP_PREFERENCES_EMAIL)) {
+            mETEmail.setText(mParams.getString(APP_PREFERENCES_EMAIL, ""));
+        }
+
 
     }
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
-        //updateUI(currentUser);
+
     }
 
     public void createAccount(String email, String password){
@@ -91,8 +100,15 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
 
     public void stopedActivity(){
 
+        SharedPreferences.Editor editor = mParams.edit();
+        editor.putString(APP_PREFERENCES_EMAIL, mETEmail.getText().toString());
+        editor.putString(APP_PREFERENCES_UID, us1.getUid());
+        editor.apply();
+
+
         Intent intent = new Intent();
         intent.putExtra("email",mETEmail.getText().toString());
+        intent.putExtra("userUId", us1.getUid());
         setResult(RESULT_OK,intent);
         finish();
     }
@@ -150,8 +166,6 @@ public class RegistrationMain extends AppCompatActivity implements View.OnClickL
                     stopedActivity();
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(RegistrationMain.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
                     updateUI(null);
                     Toast.makeText(RegistrationMain.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
                 }
