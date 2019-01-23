@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -66,13 +67,6 @@ public class MainActivity extends AppCompatActivity
     FirebaseUser mUser;
     String mUserUId;
 
-    // Write a message to the database
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +80,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 fragmentClass=NewCreateFragment.class;
                 setTitle("New Create");
-
                 setFragment();
             }
         });
@@ -97,9 +90,8 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        myRef.setValue("Hello, World!");
         // Read from the database
-        onDataRead();
+
 
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -118,11 +110,9 @@ public class MainActivity extends AppCompatActivity
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-/*
         assert mUser==null;
         Intent iIntent = new Intent(MainActivity.this, RegistrationMain.class);
         startActivityForResult(iIntent, 1);
-*/
 
 
     }
@@ -136,28 +126,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    public void onDataRead(){
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Toast.makeText(MainActivity.this, "Value is: " + value, Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Failed to read value
-                 Toast.makeText(MainActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -261,6 +229,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
     public void onDayLayoutClick(View view){
         switch (view.getId()){
             case R.id.monday_button_go:
@@ -287,6 +256,5 @@ public class MainActivity extends AppCompatActivity
         }
         setFragment();
     }
-
 
 }
